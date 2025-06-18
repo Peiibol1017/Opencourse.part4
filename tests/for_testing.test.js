@@ -1,6 +1,12 @@
 const {test, describe} = require ('node:test')
+const supertest = require('supertest')
 const assert = require ('node:assert')
+const app = require('../app')
 const listHelper = require ('../utils/listHelper.js')
+const blogsRouter = require ('../controllers/blogsRouter.js')
+const mongoose = require('mongoose')
+
+const api = supertest(app)
 
 test('dummy returns one', () => {
     console.log("test iniciando")
@@ -111,4 +117,7 @@ describe ('author more liked and with more blogs', () => {
             likes: 79
         })
     })
+})
+test.after(async () => {
+    await mongoose.connection.close()
 })
